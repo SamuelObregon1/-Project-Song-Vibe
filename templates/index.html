@@ -32,24 +32,16 @@
 	</div>
 
 	<div class="alert alert-success" style = "padding: 10px;">
-		{% if my_python_variable %}
-				<p> I do exist!: {{my_python_variable}}</p>
-		{% endif %}
 		{% if input_text %} 
-			<h4> Classification for:  {{ input_text }} </h4> 
+			<h4> User text:  {{ input_text }} </h4> 
+		{% endif %}
+		{% if result %}
+			<p> Match found: {{ result }} </p>
+	  	{% endif %}
+	  	{% if genre %}
+	  		<p> Match found: {{ genre }} </p>
 		{% endif %}
 
-		{% if result %}
-			<p> Model predicted: {{ result }} </p>
-	  {% endif %}
-
-	    {% if precent_democrat %}
-	    	<p> Percent democrat: {{ precent_democrat }} </p>
-	    {% endif %}
-
-	    {% if precent_republican %}
-	    	<p> Percent republican: {{ precent_republican }} </p>
-	    {% endif %}
 	</div>
      <p>
 		<a href="{{ url_for('classify_image') }} " class="btn btn-secondary my-4">Classify Image Page</a>

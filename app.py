@@ -8,9 +8,9 @@ from skimage import transform
 
 app = flask.Flask(__name__, template_folder='templates')
 
-path_to_vectorizer = 'models/vectorizer.pkl'
-path_to_text_classifier = 'models/text-classifier.pkl'
-path_to_image_classifier = 'models/image-classifier.pkl'
+path_to_vectorizer = 'C:/Users/Y/Documents/GitHub/-Project-Song-Vibe/models/vectorizer.pkl'
+path_to_text_classifier = 'C:/Users/Y/Documents/GitHub/-Project-Song-Vibe/models/text-classifier.pkl'
+path_to_image_classifier = 'C:/Users/Y/Documents/GitHub/-Project-Song-Vibe/models/image-classifier.pkl'
 
 with open(path_to_vectorizer, 'rb') as f:
     vectorizer = pickle.load(f)
@@ -26,43 +26,33 @@ with open(path_to_image_classifier, 'rb') as f:
 def main():
     if flask.request.method == 'GET':
         # Just render the initial form, to get input
-        #declating new var
-        new_var = "Working"
-        return(flask.render_template('index.html',my_python_variable= new_var))
+        return(flask.render_template('index.html'))
         #return(flask.render_template('index.html'))
 
 
     if flask.request.method == 'POST':
         # Get the input from the user.
         user_input_text = flask.request.form['user_input_text']
-        
         # Turn the text into numbers using our vectorizer
         X = vectorizer.transform([user_input_text])
-        
         # Make a prediction 
         predictions = model.predict(X)
-        
         # Get the first and only value of the prediction.
         prediction = predictions[0]
-
         # Get the predicted probabs
         predicted_probas = model.predict_proba(X)
-
         # Get the value of the first, and only, predicted proba.
         predicted_proba = predicted_probas[0]
-
         # The first element in the predicted probabs is % democrat
-        precent_democrat = predicted_proba[0]
-
+        genre = predicted_proba[0]
         # The second elemnt in predicted probas is % republican
-        precent_republican = predicted_proba[1]
+        #precent_republican = predicted_proba[1]
 
 
         return flask.render_template('index.html', 
             input_text=user_input_text,
             result=prediction,
-            precent_democrat=precent_democrat,
-            precent_republican=precent_republican)
+            genre=genre)
 
 
 
