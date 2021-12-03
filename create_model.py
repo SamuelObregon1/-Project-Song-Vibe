@@ -83,7 +83,6 @@ y_pred_proba = model.predict_proba(X_test)
     
 
 # Save our vectorizer and model.
-pickle.dump(vectorizer, open('models/compare.pkl', 'wb') )
-pickle.dump(model, open('models/text-classifier.pkl', 'wb') )
-
+pickle.dump(vectorizer, open('models/vectorizer.pkl', 'wb') )
+pickle.dump(model, open('models/compare.pkl', 'wb') )
 
