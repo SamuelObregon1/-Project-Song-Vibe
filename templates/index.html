@@ -23,7 +23,7 @@
 	    <fieldset>
 			<div style = "font-weight: 500;">
 	        <!--<legend>Input Text:</legend>-->
-	        Type 3 - 5 words here:
+	        Type 3 words here:
 	        <input name="user_input_text" type="text" required>
 	        <input type="submit" value="Submit">
 		</div>
@@ -36,16 +36,22 @@
 			<h4> User text:  {{ input_text }} </h4> 
 		{% endif %}
 		{% if result %}
-			<p> Match found: {{ result }} </p>
+			<p> Predicted Genre: {{ result }} </p>
 	  	{% endif %}
 	  	{% if genre %}
-	  		<p> Match found: {{ genre }} </p>
+	  		<p> Predicted Percentage: {{ genre }} </p>
+		{% endif %}
+		{% if result %}
+	  		<h4> Below are the artists and their genres </h4>
+		{% endif %}
+		{% if result %}
+	  		<p> Artist: {{ porky }} </p>
+		{% endif %}
+		{% if result %}
+	  		<p> Genre: {{ kilt }} </p>
 		{% endif %}
 
 	</div>
-     <p>
-		<a href="{{ url_for('classify_image') }} " class="btn btn-secondary my-4">Classify Image Page</a>
-     </p>
 	</div>
   </body>
 </html>

@@ -2,15 +2,54 @@ import flask
 import os
 import pickle
 import pandas as pd
+import re
 from skimage import io
 from skimage import transform
 
+import matplotlib.pyplot as plt
+import seaborn as sns
+import spacy
+import nltk
+
+from nltk.corpus import stopwords
+from nltk import word_tokenize
+from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import wordnet
+
+import string
+
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+from sklearn.svm import SVC
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LinearRegression
+
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import plot_confusion_matrix
+from sklearn.metrics import classification_report
+
+from sklearn import metrics
+
+
+nlp = spacy.load("en_core_web_sm")
+
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
+stopwords = stopwords.words('english')
+
+
+df = pd.read_csv('https://raw.githubusercontent.com/SamuelObregon1/Project-Song-Vibe/main/DATA/music_data.csv')
 
 app = flask.Flask(__name__, template_folder='templates')
 
-path_to_vectorizer = 'models/vectorizer.pkl'
-path_to_text_classifier = 'models/text-classifier.pkl'
-#path_to_image_classifier = 'models/image-classifier.pkl'
+path_to_vectorizer = 'C:/Users/Y/project-vibe/models/vectorizer.pkl'
+path_to_text_classifier = 'C:/Users/Y/project-vibe/models/text-classifier.pkl'
+path_to_image_classifier = 'C:/Users/Y/project-vibe/models/image-classifier.pkl'
 
 with open(path_to_vectorizer, 'rb') as f:
     vectorizer = pickle.load(f)
@@ -18,8 +57,24 @@ with open(path_to_vectorizer, 'rb') as f:
 with open(path_to_text_classifier, 'rb') as f:
     model = pickle.load(f)
 
+with open(path_to_image_classifier, 'rb') as f:
     image_classifier = pickle.load(f)
 
+
+def make_lower(a_string):
+    return a_string.lower()
+
+def remove_punctuation(a_string):    
+    a_string = re.sub(r'[^\w\s]','',a_string)
+    return a_string
+
+def text_pipeline(input_string):
+    input_string = make_lower(input_string)
+    input_string = remove_punctuation(input_string)   
+    return input_string
+
+df['message_clean'] = df['lyrics']
+df['message_clean'] = df['lyrics'].apply(text_pipeline)
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
@@ -27,11 +82,31 @@ def main():
         # Just render the initial form, to get input
         return(flask.render_template('index.html'))
         #return(flask.render_template('index.html'))
-
-
+    
     if flask.request.method == 'POST':
         # Get the input from the user.
         user_input_text = flask.request.form['user_input_text']
+
+        list1 = re.split('\s+', user_input_text)    
+        print(list1)
+        j=0
+        
+        #print(df[df['message_clean'].str.contains(list1[j])])
+        #print(df[df['message_clean'].str.contains(list1[j]) & df['message_clean'].str.contains(list1[j+1])])
+        #print(df[df['message_clean'].str.contains(list1[j]) & df['message_clean'].str.contains(list1[j+2])])
+        #print(df[df['message_clean'].str.contains(list1[j+1]) & df['message_clean'].str.contains(list1[j+2])])
+        print(df[df['message_clean'].str.contains(list1[j]) & df['message_clean'].str.contains(list1[j+1]) & df['message_clean'].str.contains(list1[j+2])], "hi")
+      
+
+        data_frame = df[df['message_clean'].str.contains(list1[j]) & df['message_clean'].str.contains(list1[j+1]) & df['message_clean'].str.contains(list1[j+2])]
+        cd = data_frame['artist_name']
+        vd = data_frame['genre']
+        porky = cd.to_string()
+        kilt = vd.to_string()
+
+        print(data_frame)
+        #print(data_frame['genre'] == 'pop', data_frame['genre'] == 'blues', data_frame['genre'] == 'rock', data_frame['genre'] == 'reggae', data_frame['genre'] == 'jazz', data_frame['genre'] == 'hip hop', data_frame['genre'] == 'country')
+
         # Turn the text into numbers using our vectorizer
         X = vectorizer.transform([user_input_text])
         # Make a prediction 
@@ -40,18 +115,16 @@ def main():
         prediction = predictions[0]
         # Get the predicted probabs
         predicted_probas = model.predict_proba(X)
-        # Get the value of the first, and only, predicted proba.
         predicted_proba = predicted_probas[0]
-        # The first element in the predicted probabs is % democrat
+        # The first element in the predicted probabs is % genre
         genre = predicted_proba[0]
-        # The second elemnt in predicted probas is % republican
-        #precent_republican = predicted_proba[1]
-
 
         return flask.render_template('index.html', 
             input_text=user_input_text,
             result=prediction,
-            genre=genre)
+            genre=genre,
+            porky=porky,
+            kilt = kilt)
 
 
 

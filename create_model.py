@@ -1,7 +1,10 @@
 import pandas as pd
 import pickle
-
+import matplotlib.pyplot as plt
+import seaborn as sns
+import spacy
 import nltk
+
 from nltk.corpus import stopwords
 from nltk import word_tokenize
 from nltk.stem import PorterStemmer
@@ -20,15 +23,14 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.linear_model import LinearRegression
 
-
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import plot_confusion_matrix
 from sklearn.metrics import classification_report
 
 from sklearn import metrics
 
-import matplotlib.pyplot as plt
-import seaborn as sns
+
+nlp = spacy.load("en_core_web_sm")
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -83,7 +85,5 @@ y_pred_proba = model.predict_proba(X_test)
     
 
 # Save our vectorizer and model.
-pickle.dump(vectorizer, open('models/compare.pkl', 'wb') )
-pickle.dump(model, open('models/text-classifier.pkl', 'wb') )
-
-
+pickle.dump(vectorizer, open('models/vectorizer.pkl', 'wb') )
+pickle.dump(model, open('models/compare.pkl', 'wb') )
