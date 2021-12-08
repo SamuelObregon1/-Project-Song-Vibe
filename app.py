@@ -47,9 +47,9 @@ df = pd.read_csv('https://raw.githubusercontent.com/SamuelObregon1/Project-Song-
 
 app = flask.Flask(__name__, template_folder='templates')
 
-path_to_vectorizer = 'C:/Users/Y/project-vibe/models/vectorizer.pkl'
-path_to_text_classifier = 'C:/Users/Y/project-vibe/models/text-classifier.pkl'
-path_to_image_classifier = 'C:/Users/Y/project-vibe/models/image-classifier.pkl'
+path_to_vectorizer = 'models/vectorizer.pkl'
+path_to_text_classifier = 'models/text-classifier.pkl'
+path_to_image_classifier = 'models/image-classifier.pkl'
 
 with open(path_to_vectorizer, 'rb') as f:
     vectorizer = pickle.load(f)
