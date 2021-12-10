@@ -2,7 +2,6 @@ import pandas as pd
 import pickle
 import matplotlib.pyplot as plt
 import seaborn as sns
-import spacy
 import nltk
 
 from nltk.corpus import stopwords
@@ -30,8 +29,6 @@ from sklearn.metrics import classification_report
 from sklearn import metrics
 
 
-nlp = spacy.load("en_core_web_sm")
-
 nltk.download('stopwords')
 nltk.download('punkt')
 nltk.download('wordnet')
@@ -48,7 +45,6 @@ def text_pipeline(input_string):
     input_string = make_lower(input_string)
     input_string = remove_punctuation(input_string)   
     return input_string
-
 
 df = pd.read_csv('https://raw.githubusercontent.com/SamuelObregon1/Project-Song-Vibe/main/DATA/music_data.csv')
 

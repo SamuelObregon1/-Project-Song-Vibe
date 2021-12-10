@@ -35,8 +35,6 @@ from sklearn.metrics import classification_report
 from sklearn import metrics
 
 
-nlp = spacy.load("en_core_web_sm")
-
 nltk.download('stopwords')
 nltk.download('punkt')
 nltk.download('wordnet')
@@ -85,26 +83,25 @@ def main():
     
     if flask.request.method == 'POST':
         # Get the input from the user.
-        user_input_text = flask.request.form['user_input_text']
-
-        list1 = re.split('\s+', user_input_text)    
-        print(list1)
-        j=0
         
-        #print(df[df['message_clean'].str.contains(list1[j])])
-        #print(df[df['message_clean'].str.contains(list1[j]) & df['message_clean'].str.contains(list1[j+1])])
-        #print(df[df['message_clean'].str.contains(list1[j]) & df['message_clean'].str.contains(list1[j+2])])
-        #print(df[df['message_clean'].str.contains(list1[j+1]) & df['message_clean'].str.contains(list1[j+2])])
-        print(df[df['message_clean'].str.contains(list1[j]) & df['message_clean'].str.contains(list1[j+1]) & df['message_clean'].str.contains(list1[j+2])], "hi")
-      
+        user_input_text = flask.request.form['user_input_text']
+        #Created new list to store userinput
+        usertext= []
+        for i in user_input_text.split():
+            usertext.append(i)
 
-        data_frame = df[df['message_clean'].str.contains(list1[j]) & df['message_clean'].str.contains(list1[j+1]) & df['message_clean'].str.contains(list1[j+2])]
+        Filter = '|'.join(usertext)
+        data_frame = df[df['message_clean'].str.contains(Filter)]
+        
+        #data_frame = df[df['message_clean'].str.contains(usertext[0]) & df['message_clean'].str.contains(usertext[1]) & df['message_clean'].str.contains(usertext[2]) ]
+        #data_frame = df[i for i in usertext if df['message_clean'].str.contains(i).bool()]
+        #data_frame = df[df['message_clean'].str.contains(list1[j]) & df['message_clean'].str.contains(list1[j+1]) & df['message_clean'].str.contains(list1[j+2])]
         cd = data_frame['artist_name']
         vd = data_frame['genre']
-        porky = cd.to_string()
-        kilt = vd.to_string()
-
-        print(data_frame)
+        porky = cd.to_string(index=False)
+        kilt = vd.to_string(index=False)
+        #print(Filter)
+       # print(data_frame)
         #print(data_frame['genre'] == 'pop', data_frame['genre'] == 'blues', data_frame['genre'] == 'rock', data_frame['genre'] == 'reggae', data_frame['genre'] == 'jazz', data_frame['genre'] == 'hip hop', data_frame['genre'] == 'country')
 
         # Turn the text into numbers using our vectorizer
