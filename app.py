@@ -90,7 +90,7 @@ def main():
         for i in user_input_text.split():
             usertext.append(i)
 
-        Filter = ''.join(usertext)
+        Filter = '|'.join(usertext)
         data_frame = df[df['message_clean'].str.contains(Filter)]
         
         #data_frame = df[df['message_clean'].str.contains(usertext[0]) & df['message_clean'].str.contains(usertext[1]) & df['message_clean'].str.contains(usertext[2]) ]
