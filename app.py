@@ -90,7 +90,7 @@ def main():
         for i in user_input_text.split():
             usertext.append(i)
 
-        Filter = '|'.join(usertext)
+        Filter = ''.join(usertext)
         data_frame = df[df['message_clean'].str.contains(Filter)]
         
         #data_frame = df[df['message_clean'].str.contains(usertext[0]) & df['message_clean'].str.contains(usertext[1]) & df['message_clean'].str.contains(usertext[2]) ]
@@ -98,8 +98,18 @@ def main():
         #data_frame = df[df['message_clean'].str.contains(list1[j]) & df['message_clean'].str.contains(list1[j+1]) & df['message_clean'].str.contains(list1[j+2])]
         cd = data_frame['artist_name']
         vd = data_frame['genre']
-        porky = cd.to_string(index=False)
-        kilt = vd.to_string(index=False)
+        porky = " Placeholder"
+        kilt = "PlaceHolder"
+        if cd.empty == True:
+            porky = "No Results Found"
+        else:
+            porky = cd.to_string(index=False)
+
+
+        if vd.empty==True:
+            kilt = " No Results Found"
+        else:
+            kilt = vd.to_string(index=False)
         #print(Filter)
        # print(data_frame)
         #print(data_frame['genre'] == 'pop', data_frame['genre'] == 'blues', data_frame['genre'] == 'rock', data_frame['genre'] == 'reggae', data_frame['genre'] == 'jazz', data_frame['genre'] == 'hip hop', data_frame['genre'] == 'country')
