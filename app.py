@@ -4,9 +4,6 @@ import pickle
 from flask.templating import render_template
 import pandas as pd
 import re
-from skimage import io
-from skimage import transform
-import seaborn as sns
 import nltk
 import string
 import json
