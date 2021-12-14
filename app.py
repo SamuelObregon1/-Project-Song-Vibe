@@ -8,7 +8,7 @@ from skimage import transform
 
 import matplotlib.pyplot as plt
 import seaborn as sns
-import spacy
+#import spacy
 import nltk
 
 from nltk.corpus import stopwords
@@ -33,6 +33,12 @@ from sklearn.metrics import plot_confusion_matrix
 from sklearn.metrics import classification_report
 
 from sklearn import metrics
+
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import plotly.express as px
+import pandas as pd
 
 
 nltk.download('stopwords')
@@ -89,22 +95,25 @@ def main():
         usertext= []
         for i in user_input_text.split():
             usertext.append(i)
-
-        Filter = '|'.join(usertext)
-        data_frame = df[df['message_clean'].str.contains(Filter)]
         
-        #data_frame = df[df['message_clean'].str.contains(usertext[0]) & df['message_clean'].str.contains(usertext[1]) & df['message_clean'].str.contains(usertext[2]) ]
-        #data_frame = df[i for i in usertext if df['message_clean'].str.contains(i).bool()]
+
+        #Filter = '|'.join(usertext)
+        #data_frame = df[df['message_clean'].str.contains(Filter)]
+        
+        data_frame = df[df['message_clean'].str.contains(usertext[0]) & df['message_clean'].str.contains(usertext[1]) & df['message_clean'].str.contains(usertext[2]) ]
+        #data_frame = df[x for x in usertext if df['message_clean'].str.contains(x).any()]
         #data_frame = df[df['message_clean'].str.contains(list1[j]) & df['message_clean'].str.contains(list1[j+1]) & df['message_clean'].str.contains(list1[j+2])]
         cd = data_frame['artist_name']
         vd = data_frame['genre']
+        topic = data_frame['topic'].to_string(index=False)
         porky = " Placeholder"
-        kilt = "PlaceHolder"
+        kilt = "Placeholder"
+        
+
         if cd.empty == True:
             porky = "No Results Found"
         else:
             porky = cd.to_string(index=False)
-
 
         if vd.empty==True:
             kilt = " No Results Found"
@@ -126,12 +135,30 @@ def main():
         # The first element in the predicted probabs is % genre
         genre = predicted_proba[0]
 
+
+        # Bar graph example for visulation:
+        #y must be an integer for a graph 
+       # df1 = data_frame   
+       # fig = px.bar(df, x='genre', y='artist_name', color='message_clean',  
+       # barmode='group')
+       # app.layout = html.Div(children=[
+        #    html.H1(children='Hello Dash'),
+         #   html.Div(children='''
+         #    Dash: A web application framework for Python.
+         #   '''),
+
+         #   dcc.Graph(
+          #      id='example-graph',
+          #      figure=fig
+          #  )
+        #])   
         return flask.render_template('index.html', 
             input_text=user_input_text,
             result=prediction,
             genre=genre,
             porky=porky,
-            kilt = kilt)
+            kilt = kilt,
+            topic=topic)
 
 
 
