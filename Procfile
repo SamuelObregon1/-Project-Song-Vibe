@@ -1,1 +1,1 @@
-web: gunicorn gettingstarted.app
+web: gunicorn sound-vibe.app
