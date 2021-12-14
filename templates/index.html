@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -35,23 +36,11 @@
 		{% if input_text %} 
 			<h4> User text:  {{ input_text }} </h4> 
 		{% endif %}
-		{% if result %}
-			<p> Predicted Genre: {{ result }} </p>
-	  	{% endif %}
-	  	{% if genre %}
-	  		<p> Predicted Percentage: {{ genre }} </p>
-		{% endif %}
-		{% if result %}
+		{% if porky %}
 	  		<h4> Below are the artists and their genres </h4>
 		{% endif %}
-		{% if result %}
-	  		<p> Artist: {{ porky }} </p>
-		{% endif %}
-		{% if result %}
-	  		<p> Genre: {{ kilt }} </p>
-		{% endif %}
-		{% if result %}
-	  		<p> Topic: {{ topic}} </p>
+		{% if final %}
+	  		<p> {{ final }} </p>
 		{% endif %}
 
 	</div>
