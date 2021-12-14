@@ -93,11 +93,13 @@ def main():
         vd = data_frame['genre']
         gg = data_frame['max value']
         db = data_frame['mood_feeling']
+        ll = data_frame['track_name']
 
         print(gg)
 
         artists =[]
         genre = []
+        song = []
         final = []
         gate = []
         rest = []
@@ -117,10 +119,13 @@ def main():
 
         for x in vd:
             genre.append(x)
+        
+        for x in ll:
+            song.append(x)
 
         i = 0
         for x in artists:
-            final.append("Artist: " + artists[i]+ ", " + "Genre: " + genre[i])
+            final.append("Artist: " + artists[i] + ", Genre: " + genre[i] + ", Song: " + song[i])
             i+=1
     
         i = 0
