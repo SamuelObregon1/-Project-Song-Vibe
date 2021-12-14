@@ -50,7 +50,9 @@
 	  		<h4> Below are the artists and their genres </h4>
 		{% endif %}
 		{% if final %}
-	  		<p> {{ final }} </p>
+			{%for i in final%}
+              <p>{{i}}<p>
+        	{% endfor %}
 		{% endif %}
 
 	</div>
