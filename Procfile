@@ -1,1 +1,1 @@
-web: gunicorn sound-vibe.app
+web: gunicorn app:app
