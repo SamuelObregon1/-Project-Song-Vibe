@@ -44,10 +44,10 @@
 
 	<div class="alert alert-success" style = "padding: 10px;">
 		{% if input_text %} 
-			<h4> User text:  {{ input_text }} </h4> 
+			<h6><b> User text:   </b>{{ input_text }}</h6> 
 		{% endif %}
-		{% if porky %}
-	  		<h4> Below are the artists and their genres </h4>
+		{% if final %}
+	  		<h6><b> Below are the artists, genres, and songs. </b></h6>
 		{% endif %}
 		{% if final %}
 			{%for i in final%}
