@@ -73,8 +73,7 @@
 	</div>
 	{% block javascript %}
 	<script>
-		let mood_labels = JSON.parse({{ the_labels | tojson }});
-		let the_artists = JSON.parse({{ the_vibes | tojson }});
+		
 		let the_vibe_chart = new Chart(the_vibe, {
 				type: 'pie',
 				data: {
