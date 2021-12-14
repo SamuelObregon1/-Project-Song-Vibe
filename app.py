@@ -6,34 +6,21 @@ import pandas as pd
 import re
 from skimage import io
 from skimage import transform
-from dash import dash_table
-import matplotlib.pyplot as plt
 import seaborn as sns
-#import spacy
 import nltk
-import plotly.express as px  # (version 4.7.0 or higher)
-import plotly.graph_objects as go
+import string
+import json
+import pandas as pd
+
+from dash import Dash
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
+from werkzeug.serving import run_simple
 from nltk.corpus import stopwords
 from nltk import word_tokenize
 from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet
 from flask import Flask
-import string
-from dash import dash_table
-import json
-
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
-import dash_bootstrap_components as dbc
-import plotly.express as px
-import pandas as pd
-from dash import Dash
-from werkzeug.middleware.dispatcher import DispatcherMiddleware
-import flask
-from werkzeug.serving import run_simple
-import dash_html_components as html
 
 
 nltk.download('stopwords')
