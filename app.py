@@ -31,7 +31,7 @@ stopwords = stopwords.words('english')
 
 df = pd.read_csv('https://raw.githubusercontent.com/SamuelObregon1/Project-Song-Vibe/main/DATA/music_data.csv')
 
-server = flask.Flask(__name__, template_folder='templates')
+app = flask.Flask(__name__, template_folder='templates')
 
 def make_lower(a_string):
     return a_string.lower()
@@ -51,11 +51,7 @@ df['mood_feeling']=df.iloc[0:28372,7:29].idxmax(axis=1)
 df['max value'] = df.iloc[0:28372,7:29].max(axis=1)
 
 
-@server.route('/plotly_dashboard')
-def render_dashboard():
-    return flask.redirect('/pathname/')
-
-@server.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def main():
     if flask.request.method == 'GET':
         # Just render the initial form, to get input
@@ -137,20 +133,20 @@ def main():
             the_labels = json.dumps(boat)
             )
 
-@server.route("/chart/")
+@app.route("/chart/")
 def chart():
     return render_template('chart.html')
 
-@server.route('/images/')
+@app.route('/images/')
 def images():
     return flask.render_template('images.html')
 
 
-@server.route('/bootstrap/')
+@app.route('/bootstrap/')
 def bootstrap():
     return flask.render_template('bootstrap.html')
 
 
 
 if __name__ == '__main__':
-    server.run(debug=True)
+    app.run(debug=True)
