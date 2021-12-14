@@ -3,6 +3,5 @@ pandas
 gunicorn
 sklearn
 scikit-image
-re
 nltk
 json
