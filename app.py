@@ -11,7 +11,6 @@ import pandas as pd
 
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from werkzeug.serving import run_simple
-from nltk.corpus import stopwords
 from nltk import word_tokenize
 from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
@@ -19,10 +18,6 @@ from nltk.corpus import wordnet
 from flask import Flask
 
 
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('wordnet')
-stopwords = stopwords.words('english')
 
 
 df = pd.read_csv('https://raw.githubusercontent.com/SamuelObregon1/Project-Song-Vibe/main/DATA/music_data.csv')
