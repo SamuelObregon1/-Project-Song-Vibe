@@ -4,4 +4,3 @@ gunicorn
 sklearn
 scikit-image
 nltk
-json
